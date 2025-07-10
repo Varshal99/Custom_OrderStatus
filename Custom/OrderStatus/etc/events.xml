@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_save_after">
+        <observer name="custom_order_status_log" instance="Custom\OrderStatus\Observer\LogOrderStatusChange"/>
+    </event>
+
+    <event name="sales_order_shipment_save_after">
+        <observer name="custom_order_shipped_email" instance="Custom\OrderStatus\Observer\SendShippedEmail"/>
+    </event>
+</config>

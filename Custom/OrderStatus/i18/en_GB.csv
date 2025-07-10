@@ -1,0 +1,8 @@
+"Could not update the order status. Please try again.","Could not update the order status. Please try again."
+"Order with increment ID "%1" not found.","Order with increment ID "%1" not found."
+"Could not save the status log: %1","Could not save the status log: %1"
+"Your order %1 has been shipped!","Your order %1 has been shipped!"
+"Dear %customer_name,", "Dear %customer_name,"
+"Great news! Your order with the ID #%order_increment_id has been shipped.","Great news! Your order with the ID #%order_increment_id has been shipped."
+"You can track your order or view the order details in your customer account.","You can track your order or view the order details in your customer account."
+"Thank you for your purchase!","Thank you for your purchase!"
