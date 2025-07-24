@@ -1,7 +1,9 @@
 # Custom Order Status Module for Magento 2
+This module provides a suite of tools for managing and observing order statuses in Magento 2. It includes a custom API with rate limiting, logs all order status changes to a custom database table, provides an admin grid to view these logs, and sends an email notification to customers when their order is shipped. The module is also supported by UI and integration tests to ensure reliability.
 
-This module provides a suite of tools for managing and observing order statuses in Magento 2. It includes custom API endpoints to get and update order data, logs all order status changes to a custom database table, and sends an email notification to customers when their order is shipped.
-
+## Preview
+- **Order Status Logs (Order -> Order Status Logs)**
+![Order Status Logs](readme-images/orderstatuslog.png?raw=true "Order Status Logs")
 -----
 
 ## Features
@@ -9,6 +11,8 @@ This module provides a suite of tools for managing and observing order statuses 
   * **POST API Endpoint**: Update an order's status using its increment ID (`/V1/orderstatus`).
   * **Status Change Logger**: Automatically logs every order status change to a dedicated `custom_order_status_log` database table.
   * **Shipment Email Notification**: Triggers a custom email to the customer as soon as a shipment is created for their order.
+  * **Admin UI Grid**: A new "Order Status Logs" page in the Sales menu of the Magento Admin to view, sort, and filter all status change records.
+  * **UI & Integration Testing:**: Includes a suite of automated tests to guarantee module functionality and stability.
 
 -----
 
@@ -61,3 +65,13 @@ This module was built following modern Magento 2 best practices to ensure it is 
 
   * **What**: Throughout the module, all class dependencies are requested through the `__construct()` method.
   * **Why**: This is a core principle of Magento 2 architecture. It promotes loose coupling between classes, making them easier to manage, test, and substitute with custom implementations via `etc/di.xml`.
+
+### 6\. Programmatic Rate Limiting via Plugin
+
+  * **What**: Rate limiting is implemented using a plugin (`Plugin/Model/OrderManagementRateLimiter.php`) on the API's service interface. This plugin uses Magento's cache to track the number of requests per IP address.
+  * **Why**: Because declarative rate limiting in `webapi.xml` is an Adobe Commerce-only feature, a plugin is the correct, non-invasive method for Magento Open Source. Targeting the service interface ensures all calls to the API are intercepted, and it cleanly separates the rate-limiting concern from the core business logic of the service class itself.
+
+### 7\. Comprehensive Testing Strategy
+
+  * **What**: The module includes both UI (Functional) and Integration tests. UI tests use the Magento Functional Testing Framework (MFTF) to simulate admin actions, while Integration tests validate that the module's different parts (API, Observers, Repository) work together correctly within a live Magento application instance.
+  * **Why**: A robust testing suite is essential for module stability and long-term maintenance. UI tests guarantee a bug-free user experience in the Admin panel, while Integration tests ensure the module's core logic functions as expected and protects against regressions during future Magento upgrades or changes.

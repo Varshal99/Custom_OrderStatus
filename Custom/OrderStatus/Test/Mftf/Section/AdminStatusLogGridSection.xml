@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/sectionSchema.xsd">
+    <section name="AdminStatusLogGridSection">
+        <element name="massActions" type="button" selector=".massaction-select-wrap button.action-select"/>
+        <element name="deleteAction" type="button" selector=".massaction-menu .action-menu-item[data-action='delete']"/>
+        <element name="confirmModal" type="button" selector=".modal-footer .action-primary"/>
+        <element name="gridRowByIncrementId" type="checkbox" selector="//td[contains(., '{{incrementId}}')]/preceding-sibling::td/input[@class='admin__control-checkbox']" parameterized="true"/>
+    </section>
+</sections>

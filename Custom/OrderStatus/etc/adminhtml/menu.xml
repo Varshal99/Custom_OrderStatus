@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Custom_OrderStatus::order_status_log"
+             title="Order Status Logs"
+             module="Custom_OrderStatus"
+             parent="Magento_Sales::sales_order"
+             sortOrder="90"
+             action="custom_order_status/log/index"
+             resource="Custom_OrderStatus::order_status_log"/>
+    </menu>
+</config>

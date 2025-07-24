@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">custom_order_status_log_listing.custom_order_status_log_listing_data_source</item>
+            <item name="deps" xsi:type="string">custom_order_status_log_listing.custom_order_status_log_listing_data_source</item>
+        </item>
+    </argument>
+
+    <settings>
+        <spinner>custom_order_status_log_columns</spinner>
+        <deps>
+            <dep>custom_order_status_log_listing.custom_order_status_log_listing_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="custom_order_status_log_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">log_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Custom_OrderStatus::order_status_log</aclResource>
+        <dataProvider class="Custom\OrderStatus\Ui\DataProvider\StatusLogDataProvider"
+                      name="custom_order_status_log_listing_data_source">
+            <settings>
+                <requestFieldName>log_id</requestFieldName>
+                <primaryFieldName>log_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters"/>
+        <massaction name="listing_massaction" component="Magento_Ui/js/grid/tree-massactions">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected records?</message>
+                        <title translate="true">Delete Records</title>
+                    </confirm>
+                    <url path="custom_order_status/log/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="custom_order_status_log_columns">
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>log_id</indexField>
+            </settings>
+        </selectionsColumn>
+
+        <column name="log_id">
+            <settings>
+                <label translate="true">Log ID</label>
+                <filter>textRange</filter>
+                <sorting>asc</sorting>
+                <dataType>number</dataType>
+                <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="order_id">
+            <settings>
+                <label translate="true">Order ID</label>
+                <filter>textRange</filter>
+                <dataType>number</dataType>
+                <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="increment_id">
+            <settings>
+                <label translate="true">Increment ID</label>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="old_status">
+            <settings>
+                <label translate="true">Old Status</label>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="new_status">
+            <settings>
+                <label translate="true">New Status</label>
+                <filter>text</filter>
+                <dataType>text</dataType>
+                <bodyTmpl>ui/grid/cells/text</bodyTmpl>
+            </settings>
+        </column>
+
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Created At</label>
+            </settings>
+        </column>
+    </columns>
+</listing>
