@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:DataGenerator/etc/dataProfileSchema.xsd">
+    <entity name="StatusLog" type="custom_order_status_log">
+        <data key="order_id" unique="suffix">1</data>
+        <data key="increment_id" unique="suffix">0000001</data>
+        <data key="old_status">pending</data>
+        <data key="new_status">processing</data>
+    </entity>
+</entities>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminMassDeleteStatusLogTest">
+        <annotations>
+            <features value="OrderStatus"/>
+            <stories value="Mass delete status logs from the admin grid"/>
+            <title value="Verify mass delete functionality on the order status log grid"/>
+            <description value="Admin should be able to select and delete log entries."/>
+            <severity value="CRITICAL"/>
+            <group value="orderstatus"/>
+        </annotations>
+
+        <before>
+            <createData entity="StatusLog" stepKey="log1"/>
+            <createData entity="StatusLog" stepKey="log2"/>
+            <createData entity="StatusLog" stepKey="log3"/>
+
+            <actionGroup ref="AdminLoginActionGroup" stepKey="loginAsAdmin"/>
+        </before>
+
+        <after>
+            <actionGroup ref="AdminLogoutActionGroup" stepKey="logout"/>
+        </after>
+
+        <amOnPage url="{{AdminStatusLogGridPage.url}}" stepKey="navigateToGrid"/>
+        <waitForPageLoad stepKey="waitForGridLoad"/>
+
+        <see userInput="$log1.increment_id$" stepKey="seeLog1"/>
+        <see userInput="$log2.increment_id$" stepKey="seeLog2"/>
+
+        <click selector="{{AdminStatusLogGridSection.gridRowByIncrementId(log1.increment_id)}}" stepKey="selectLog1"/>
+        <click selector="{{AdminStatusLogGridSection.gridRowByIncrementId(log2.increment_id)}}" stepKey="selectLog2"/>
+        
+        <click selector="{{AdminStatusLogGridSection.massActions}}" stepKey="openMassActions"/>
+        <click selector="{{AdminStatusLogGridSection.deleteAction}}" stepKey="clickDelete"/>
+        <click selector="{{AdminStatusLogGridSection.confirmModal}}" stepKey="confirmDelete"/>
+
+        <see userInput="2 record(s) have been deleted." stepKey="seeSuccessMessage"/>
+
+        <dontSee userInput="$log1.increment_id$" stepKey="dontSeeLog1"/>
+        <dontSee userInput="$log2.increment_id$" stepKey="dontSeeLog2"/>
+        <see userInput="$log3.increment_id$" stepKey="seeLog3"/>
+    </test>
+</tests>

@@ -2,4 +2,10 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Custom\OrderStatus\Api\OrderManagementInterface" type="Custom\OrderStatus\Model\OrderManagement" />
     <preference for="Custom\OrderStatus\Api\StatusLogRepositoryInterface" type="Custom\OrderStatus\Model\StatusLogRepository" />
+    <type name="Custom\OrderStatus\Api\OrderManagementInterface">
+        <plugin name="custom_order_status_rate_limiter"
+                type="Custom\OrderStatus\Plugin\Model\OrderManagementRateLimiter"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
 </config>

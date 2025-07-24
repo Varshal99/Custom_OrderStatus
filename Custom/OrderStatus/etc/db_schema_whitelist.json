@@ -1,0 +1,18 @@
+{
+    "custom_order_status_log": {
+        "column": {
+            "log_id": true,
+            "order_id": true,
+            "increment_id": true,
+            "old_status": true,
+            "new_status": true,
+            "created_at": true
+        },
+        "index": {
+            "CUSTOM_ORDER_STATUS_LOG_ORDER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

@@ -10,6 +10,11 @@ use Custom\OrderStatus\Api\StatusLogRepositoryInterface;
 use Custom\OrderStatus\Model\StatusLogFactory;
 use Psr\Log\LoggerInterface;
 
+/**
+ * Class LogOrderStatusChange
+ *
+ * Observer that logs order status changes to a custom log table.
+ */
 class LogOrderStatusChange implements ObserverInterface
 {
     /**
@@ -27,6 +32,13 @@ class LogOrderStatusChange implements ObserverInterface
      */
     protected $logger;
 
+    /**
+     * LogOrderStatusChange constructor.
+     *
+     * @param StatusLogRepositoryInterface $statusLogRepository
+     * @param StatusLogFactory $statusLogFactory
+     * @param LoggerInterface $logger
+     */
     public function __construct(
         StatusLogRepositoryInterface $statusLogRepository,
         StatusLogFactory $statusLogFactory,
@@ -37,7 +49,13 @@ class LogOrderStatusChange implements ObserverInterface
         $this->logger = $logger;
     }
 
-    public function execute(Observer $observer)
+    /**
+     * Execute observer to log status change when order status is updated.
+     *
+     * @param Observer $observer
+     * @return void
+     */
+    public function execute(Observer $observer): void
     {
         /** @var \Magento\Sales\Model\Order $order */
         $order = $observer->getEvent()->getOrder();
@@ -50,10 +68,10 @@ class LogOrderStatusChange implements ObserverInterface
                 /** @var \Custom\OrderStatus\Model\StatusLog $logEntry */
                 $logEntry = $this->statusLogFactory->create();
                 $logEntry->setData([
-                    'order_id' => $order->getId(),
+                    'order_id'     => $order->getId(),
                     'increment_id' => $order->getIncrementId(),
-                    'old_status' => $oldStatus,
-                    'new_status' => $newStatus,
+                    'old_status'   => $oldStatus,
+                    'new_status'   => $newStatus,
                 ]);
 
                 $this->statusLogRepository->save($logEntry);
